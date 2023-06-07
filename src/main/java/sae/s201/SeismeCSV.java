@@ -47,12 +47,8 @@ public class SeismeCSV {
         this.choc = choc;
     }
 
-    public static void main(String[] args) {
-        SeismeCSV init = new SeismeCSV();
-        init.importDataFromCSV(new File("data.csv"));
-    }
 
-    private void importDataFromCSV(File file) {
+    void importDataFromCSV(File file) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
