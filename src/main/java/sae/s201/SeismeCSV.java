@@ -35,8 +35,8 @@ public class SeismeCSV {
     }
 
     LocalDate date;
-    LocalTime heure;
-    double intensite;
+    String heure;
+    String intensite;
     String qualite;
     String nom;
     String region;
@@ -46,7 +46,7 @@ public class SeismeCSV {
         this.importDataFromCSV(new File(csvFilePath));
     }
 
-    public SeismeCSV(String identifiant, LocalDate date, LocalTime heure, double intensite, String qualite, String nom, String region, String choc) {
+    public SeismeCSV(String identifiant, LocalDate date, String heure, String intensite, String qualite, String nom, String region, String choc) {
         this.identifiant = identifiant;
         this.date = date;
         this.heure = heure;
@@ -68,9 +68,14 @@ public class SeismeCSV {
 
                 // Récupérer les valeurs des attributs depuis le tableau data
                 String id = data[aID];
-                LocalDate date = LocalDate.parse(data[aDate], DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-                LocalTime heure = LocalTime.parse(data[aHeure]);
-                double intensite = Double.parseDouble(data[aIntensite]);
+                //recuperation de la date et conversion au format LocalDate
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                String datetxt = data[aDate];
+                datetxt=datetxt.replace("\"", "");
+                LocalDate date = LocalDate.parse(datetxt, formatter);
+
+                String heure = data[aHeure];
+                String intensite = data[aIntensite];
                 String qual = data[aQual];
                 String nom = data[aNom];
                 String region = data[aRegion];

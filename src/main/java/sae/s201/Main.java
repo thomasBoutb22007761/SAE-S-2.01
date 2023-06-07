@@ -1,22 +1,19 @@
 package sae.s201;
 
+
+
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import java.io.IOException;
+        import javafx.fxml.FXMLLoader;
+        import javafx.scene.Parent;
+        import javafx.scene.Scene;
+        import javafx.stage.Stage;
 
 public class Main extends Application {
-    SeismeCSV init = new SeismeCSV("data.csv");
+    SeismeCSV init = new SeismeCSV("src/main/ressources/sae/s201/data.csv");
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
-        StackPane root = loader.load();
-
-        Scene scene = new Scene(root, 800, 600);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Application JavaFX");
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("App.fxml"));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
