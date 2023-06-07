@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
-    SeismeCSV init = new SeismeCSV();
+    SeismeCSV init = new SeismeCSV("data.csv");
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));

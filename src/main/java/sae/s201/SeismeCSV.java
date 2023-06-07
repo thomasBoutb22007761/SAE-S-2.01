@@ -42,8 +42,8 @@ public class SeismeCSV {
     String region;
     String choc;
 
-    public SeismeCSV() {
-        this.importDataFromCSV(new File("data.csv"));
+    public SeismeCSV(String csvFilePath) {
+        this.importDataFromCSV(new File(csvFilePath));
     }
 
     public SeismeCSV(String identifiant, LocalDate date, LocalTime heure, double intensite, String qualite, String nom, String region, String choc) {
@@ -92,6 +92,28 @@ public class SeismeCSV {
 
         for (SeismeCSV seismeData : listData) {
             if (seismeData.getDate().getYear() == annee && seismeData.getRegion().equalsIgnoreCase(lieu)) {
+                filteredList.add(seismeData);
+            }
+        }
+
+        return filteredList;
+    }
+    public List<SeismeCSV> filtreA(List<SeismeCSV> listData, int annee) {
+        List<SeismeCSV> filteredList = new ArrayList<>();
+
+        for (SeismeCSV seismeData : listData) {
+            if (seismeData.getDate().getYear() == annee) {
+                filteredList.add(seismeData);
+            }
+        }
+
+        return filteredList;
+    }
+    public List<SeismeCSV> filtreL(List<SeismeCSV> listData, String lieu) {
+        List<SeismeCSV> filteredList = new ArrayList<>();
+
+        for (SeismeCSV seismeData : listData) {
+            if (seismeData.getRegion().equalsIgnoreCase(lieu)) {
                 filteredList.add(seismeData);
             }
         }
