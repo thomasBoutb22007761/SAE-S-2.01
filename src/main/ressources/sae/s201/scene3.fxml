@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
-<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" prefWidth="800.0" prefHeight="600.0"
-      alignment="CENTER" spacing="10" fx:controller="com.example.Scene3Controller">
-    <Label text="Scene 3" style="-fx-font-size: 24px;"/>
-</VBox>
