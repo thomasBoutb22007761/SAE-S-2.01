@@ -5,12 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class Main extends Application {
-    SeismeCSV seisme = new SeismeCSV();
-    seisme.importDataFromCSV(new File("data.csv"));
+    SeismeCSV init = new SeismeCSV();
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));

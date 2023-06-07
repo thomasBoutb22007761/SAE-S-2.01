@@ -25,6 +25,15 @@ public class SeismeCSV {
     private static final int aChoc = 8;
 
     String identifiant;
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
     LocalDate date;
     LocalTime heure;
     double intensite;
@@ -34,6 +43,7 @@ public class SeismeCSV {
     String choc;
 
     public SeismeCSV() {
+        this.importDataFromCSV(new File("data.csv"));
     }
 
     public SeismeCSV(String identifiant, LocalDate date, LocalTime heure, double intensite, String qualite, String nom, String region, String choc) {
@@ -48,7 +58,7 @@ public class SeismeCSV {
     }
 
 
-    void importDataFromCSV(File file) {
+    public void importDataFromCSV(File file) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
@@ -76,6 +86,17 @@ public class SeismeCSV {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+    public List<SeismeCSV> filtreAL(List<SeismeCSV> listData, int annee, String lieu) { //Filtre les données par année et par lieu
+        List<SeismeCSV> filteredList = new ArrayList<>();
+
+        for (SeismeCSV seismeData : listData) {
+            if (seismeData.getDate().getYear() == annee && seismeData.getRegion().equalsIgnoreCase(lieu)) {
+                filteredList.add(seismeData);
+            }
+        }
+
+        return filteredList;
     }
 
 }
