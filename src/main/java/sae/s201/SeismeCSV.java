@@ -34,6 +34,10 @@ public class SeismeCSV {
         return region;
     }
 
+    public List<SeismeCSV> getListData() {
+        return listData;
+    }
+
     LocalDate date;
     String heure;
     String intensite;

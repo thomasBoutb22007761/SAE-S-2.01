@@ -9,7 +9,7 @@ import javafx.application.Application;
         import javafx.stage.Stage;
 
 public class Main extends Application {
-    SeismeCSV init = new SeismeCSV("src/main/ressources/sae/s201/data.csv");
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("App.fxml"));
