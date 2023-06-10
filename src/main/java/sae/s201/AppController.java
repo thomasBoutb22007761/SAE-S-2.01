@@ -108,6 +108,7 @@ public class AppController {
 
     }
 
+    public void updateEvoNbS(){}
     @FXML
     private void changeGraph(ActionEvent event) {
         updateIntens(barIntens,GraphIntens(triData(true,false)));
