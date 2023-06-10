@@ -17,7 +17,7 @@ public class AppController {
 
     private SeismeCSV init = new SeismeCSV("src/main/ressources/sae/s201/data.csv");
 
-    int annee;
+    int annee = 2000;
     String lieu;
     @FXML
     private Slider dateSlider;
@@ -25,10 +25,10 @@ public class AppController {
     @FXML
     private Label taDateLabel;
 
-    @FXML
-    CategoryAxis xAxis1;
-    @FXML
-    NumberAxis yAxis1;
+    //@FXML
+    //CategoryAxis xAxis1;
+    //@FXML
+    //NumberAxis yAxis1;
 
     @FXML
     BarChart barIntens;
@@ -110,6 +110,6 @@ public class AppController {
 
     @FXML
     private void changeGraph(ActionEvent event) {
-
+        updateIntens(barIntens,GraphIntens(triData(true,false)));
     }
 }

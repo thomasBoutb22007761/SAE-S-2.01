@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sae.s201.AppController">
     <children>
         <SplitPane dividerPositions="0.3502227171492205" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <items>
@@ -36,7 +36,7 @@
                         </Label>
                   <ImageView fitHeight="281.0" fitWidth="303.0" layoutX="14.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/carte-region-1_max.png" />
+                        <Image url="" />
                      </image>
                   </ImageView>
                   <Label layoutX="115.0" layoutY="263.0" text="carte regions">
@@ -67,6 +67,7 @@
                             <NumberAxis side="LEFT" fx:id="xAxis1" />
                           </yAxis>
                         </BarChart>
+                        <Button layoutX="14.0" layoutY="269.0" mnemonicParsing="false" onAction="#changeGraph" text="Button" />
                             </children>
                         </AnchorPane>
                     </content>
