@@ -83,6 +83,7 @@ public class SeismeCSV {
                 String qual = data[aQual];
                 String nom = data[aNom];
                 String region = data[aRegion];
+                region=region.replace("\"", "");
                 String choc = data[aChoc];
 
                 // Créer un objet SeismeData avec les valeurs des attributs
@@ -122,6 +123,7 @@ public class SeismeCSV {
         List<SeismeCSV> filteredList = new ArrayList<>();
 
         for (SeismeCSV seismeData : listData) {
+
             if (seismeData.getRegion().equalsIgnoreCase(lieu)) {
                 filteredList.add(seismeData);
             }

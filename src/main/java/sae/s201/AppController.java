@@ -18,7 +18,7 @@ public class AppController {
     private SeismeCSV init = new SeismeCSV("src/main/ressources/sae/s201/data.csv");
 
     int annee = 2000;
-    String lieu = "ALPES MARITIMES";
+    String lieu = "PYRENEES OCCIDENTALES";
     @FXML
     private Slider dateSlider;
 
@@ -48,6 +48,7 @@ public class AppController {
             return init.filtreA(init.getListData(), annee);
         }
         if (blieu) {
+
             return init.filtreL(init.getListData(), lieu);
         }
         if (blieu && bannee) {
@@ -101,15 +102,19 @@ public class AppController {
         return intensL;
     }
 
-    public ArrayList<ArrayList<Integer>> GraphEvo(List<SeismeCSV> liste){
+    public ArrayList<ArrayList<Integer>> GraphEvo(List<SeismeCSV> list){
+
         ArrayList<Integer> annees = new ArrayList();
-        for (SeismeCSV seisme : liste) {
-            if (!(annees.contains(seisme.date.getYear()))){
+        for (SeismeCSV seisme : list) {
+            if (!(annees.contains(seisme.getDate().getYear()))){
                 annees.add(seisme.date.getYear());
             }
+
         }
+
         ArrayList<Integer> nombre = new ArrayList<>(Collections.nCopies(annees.size(), 0));
-        for (SeismeCSV seisme : liste){
+
+        for (SeismeCSV seisme : list){
             nombre.set(annees.indexOf(seisme.date.getYear()), nombre.get(annees.indexOf(seisme.date.getYear())) + 1);
         }
         ArrayList<ArrayList<Integer>> data = new ArrayList();
@@ -117,6 +122,7 @@ public class AppController {
         data.add(nombre);
         return data;
     }
+
     public void updateIntens(BarChart<String, Integer> chart, ArrayList<Integer> data) {
         XYChart.Series<String, Integer> dataSeries1 = new XYChart.Series<String, Integer>();
         for (int i = 0; i < data.size(); ++i) {
@@ -125,10 +131,12 @@ public class AppController {
         chart.getData().add(dataSeries1);
     }
 
-    public void updateEvoNbS(BarChart<Integer, Integer> chart, ArrayList<ArrayList<Integer>> data) {
-        XYChart.Series<Integer, Integer> dataSeries2 = new XYChart.Series<>();
+    public void updateEvoNbS(BarChart<String, Integer> chart, ArrayList<ArrayList<Integer>> data) {
+        XYChart.Series<String, Integer> dataSeries2 = new XYChart.Series<>();
+        ArrayList<Integer> annees = data.get(0);
+        ArrayList<Integer> quantite = data.get(1);
         for (int i = 0; i < data.get(0).size(); ++i) {
-            dataSeries2.getData().add(new XYChart.Data<Integer, Integer>(data.get(0).get(i),data.get(0).get(i)));
+            dataSeries2.getData().add(new XYChart.Data<String, Integer>(Integer.toString(annees.get(i)),quantite.get(i)));
         }
         chart.getData().add(dataSeries2);
     }
