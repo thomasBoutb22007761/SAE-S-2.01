@@ -54,7 +54,7 @@
                             <NumberAxis label="Nombre" side="LEFT" fx:id="xAxis1" />
                           </yAxis>
                         </BarChart>
-                        <BarChart layoutX="-7.0" layoutY="303.0" prefHeight="288.0" prefWidth="580.0" title="Evolution du nombre de seismes">
+                        <BarChart fx:id="barEvo" layoutX="-7.0" layoutY="303.0" prefHeight="288.0" prefWidth="580.0" title="Evolution du nombre de seismes">
                           <xAxis>
                             <CategoryAxis label="Année" side="BOTTOM" />
                           </xAxis>
