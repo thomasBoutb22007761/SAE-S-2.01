@@ -2,7 +2,6 @@
 
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -18,7 +17,6 @@
                                 <Font name="AppleGothic Regular" size="16.0" />
                             </font>
                         </Label>
-                        <Spinner layoutX="30.0" layoutY="224.0" prefHeight="26.0" prefWidth="254.0" />
                         <Label layoutX="101.0" layoutY="191.0" text="selection region">
                             <font>
                                 <Font name="AppleGothic Regular" size="16.0" />
@@ -34,40 +32,41 @@
                                 <Font size="19.0" />
                             </font>
                         </Label>
-                  <ImageView fitHeight="281.0" fitWidth="303.0" layoutX="14.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="115.0" layoutY="263.0" text="carte regions">
-                     <font>
-                        <Font name="AppleGothic Regular" size="16.0" />
-                     </font>
-                  </Label>
+
+                        <Label layoutX="113.0" layoutY="299.0" text="carte regions">
+                            <font>
+                                <Font name="AppleGothic Regular" size="16.0" />
+                            </font>
+                        </Label>
+                        <ChoiceBox fx:id="selectRegion" layoutX="86.0" layoutY="227.0" prefWidth="150.0" AnchorPane.bottomAnchor="346.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="227.0" />
+                        <Button mnemonicParsing="false" onAction="#changeGraph" text="Button" />
+                        <Label fx:id="taDateLabel1" contentDisplay="CENTER" layoutX="132.0" layoutY="261.0" text="region" textAlignment="CENTER" wrapText="true">
+                            <font>
+                                <Font size="19.0" />
+                            </font>
+                        </Label>
                     </children>
                 </AnchorPane>
                 <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
                     <content>
                         <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
                             <children>
-                        <AreaChart layoutX="273.0" layoutY="-1.0" prefHeight="270.0" prefWidth="300.0" title="nombre de seismes sur 10 ans">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </AreaChart>
-                        <PieChart layoutX="3.0" layoutY="265.0" prefHeight="321.0" prefWidth="552.0" title="evolution du nombre de seismes " />
-                        <BarChart fx:id="barIntens" layoutX="14.0" layoutY="25.0" prefHeight="244.0" prefWidth="275.0">
-                          <xAxis>
-                            <CategoryAxis fx:id="yAxis1" side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" fx:id="xAxis1" />
-                          </yAxis>
-                        </BarChart>
-                        <Button layoutX="14.0" layoutY="269.0" mnemonicParsing="false" onAction="#changeGraph" text="Button" />
+                                <BarChart fx:id="barEvo" layoutY="300.0" prefHeight="294.0" prefWidth="568.0">
+                                    <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                    </yAxis>
+                                </BarChart>
+                                <BarChart fx:id="barIntens" layoutX="5.0" layoutY="5.0" prefHeight="300.0" prefWidth="563.0">
+                                    <xAxis>
+                                        <CategoryAxis fx:id="yAxis1" side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis side="LEFT" fx:id="xAxis1" />
+                                    </yAxis>
+                                </BarChart>
                             </children>
                         </AnchorPane>
                     </content>
