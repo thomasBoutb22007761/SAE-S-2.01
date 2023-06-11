@@ -18,18 +18,13 @@ public class AppController {
 
     private SeismeCSV init = new SeismeCSV("src/main/ressources/sae/s201/data.csv");
 
-    int annee = 2000;
+    int annee ;
     String lieu = "PYRENEES OCCIDENTALES";
     @FXML
-    private Slider dateSlider;
+    private Slider anneeSlider;
 
     @FXML
-    private Label taDateLabel;
-
-    //@FXML
-    //CategoryAxis xAxis1;
-    //@FXML
-    //NumberAxis yAxis1;
+    private Label anneeLabel;
 
     @FXML
     BarChart barIntens;
@@ -39,8 +34,9 @@ public class AppController {
 
     @FXML
     public void initialize() {
-        dateSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            taDateLabel.setText(newValue.toString());
+        anneeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            int annneeChoisie = newValue.intValue();
+            anneeLabel.setText("Année choisie: " + annneeChoisie);
         });
     }
 
@@ -146,6 +142,7 @@ public class AppController {
 
     @FXML
     private void changeGraph(ActionEvent event) {
+        annee = (int)anneeSlider.getValue();
         updateIntens(barIntens,GraphIntens(triData(true,false)));
         updateEvoNbS(barEvo,GraphEvo(triData(false,true)));
     }
