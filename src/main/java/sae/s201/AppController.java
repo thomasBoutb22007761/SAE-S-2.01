@@ -1,11 +1,13 @@
 package sae.s201;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 
@@ -19,18 +21,29 @@ public class AppController {
     private SeismeCSV init = new SeismeCSV("src/main/ressources/sae/s201/data.csv");
 
     int annee ;
-    String lieu = "PYRENEES OCCIDENTALES";
+    String lieu ;
     @FXML
     private Slider anneeSlider;
-
     @FXML
     private Label anneeLabel;
-
+    @FXML
+    private Label lieuLabel1;
     @FXML
     BarChart barIntens;
-
     @FXML
     BarChart barEvo;
+    @FXML
+    private ChoiceBox selectRegion;
+
+    public ArrayList<String> getLieux(List<SeismeCSV> list){
+        ArrayList<String> lieux = new ArrayList();
+        for (SeismeCSV seisme : list) {
+            if (!(lieux.contains(seisme.getRegion()))){
+                lieux.add(seisme.getRegion());
+            }
+        }
+        return lieux;
+    }
 
     @FXML
     public void initialize() {
@@ -38,6 +51,14 @@ public class AppController {
             int annneeChoisie = newValue.intValue();
             anneeLabel.setText("Année choisie: " + annneeChoisie);
         });
+        selectRegion.getItems().addAll(getLieux(triData(false,false)));
+        selectRegion.setOnAction(this::getLieuCB);
+    }
+
+    private void getLieuCB(Event Event){
+        System.out.println(selectRegion.getValue());
+        lieu = (String) selectRegion.getValue();
+        lieuLabel1.setText("Lieu choisi: " + lieu);
     }
 
     public List<SeismeCSV> triData(boolean bannee, boolean blieu) {
@@ -141,9 +162,12 @@ public class AppController {
     }
 
     @FXML
-    private void changeGraph(ActionEvent event) {
+    private void changeGraphAnnee(ActionEvent event) {
         annee = (int)anneeSlider.getValue();
         updateIntens(barIntens,GraphIntens(triData(true,false)));
+    }
+    @FXML
+    private void changeGraphLieu(ActionEvent event) {
         updateEvoNbS(barEvo,GraphEvo(triData(false,true)));
     }
 }

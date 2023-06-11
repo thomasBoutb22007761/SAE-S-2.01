@@ -9,13 +9,13 @@
     <children>
         <SplitPane dividerPositions="0.3502227171492205" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <items>
-                <AnchorPane prefHeight="598.0" prefWidth="351.0">
+                <AnchorPane prefHeight="598.0" prefWidth="316.0">
                     <children>
                         <Slider fx:id="anneeSlider" blockIncrement="1" layoutX="24.0" layoutY="95.0" majorTickUnit="1" max="2023" min="1900" prefHeight="38.0" prefWidth="313.0" snapToTicks="true">
                             <showTickMarks>true</showTickMarks>
                             <showTickLabels>true</showTickLabels>
                         </Slider>
-                        <Label fx:id="anneeLabel" layoutX="138.0" layoutY="156.0" text="Année choisie">
+                        <Label fx:id="anneeLabel" layoutY="156.0" prefHeight="20.0" prefWidth="337.0" text="Année choisie">
                      <font>
                         <Font size="14.0" />
                      </font></Label>
@@ -37,16 +37,17 @@
                         </Label>
                         <ChoiceBox fx:id="selectRegion" layoutX="85.0" layoutY="372.0" prefWidth="150.0" AnchorPane.bottomAnchor="201.0" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="372.0" />
                         <Button layoutX="227.0" layoutY="211.0" mnemonicParsing="false" onAction="#changeGraphAnnee" text="Ajouter données" />
-                        <Label fx:id="taDateLabel1" contentDisplay="CENTER" layoutX="137.0" layoutY="420.0" text="Lieu choisi" textAlignment="CENTER" wrapText="true">
-                            <font>
-                                <Font size="19.0" />
-                            </font>
-                        </Label>
+                  <Button layoutX="227.0" layoutY="469.0" mnemonicParsing="false" onAction="#changeGraphLieu" text="Ajouter données" />
+                  <Label fx:id="lieuLabel1" layoutX="-2.0" layoutY="415.0" prefHeight="20.0" prefWidth="321.0" text="Lieu choisi">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                     </children>
                 </AnchorPane>
                 <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
                     <content>
-                        <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
+                        <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="594.0" prefWidth="578.0">
                             <children>
                                 <BarChart fx:id="barEvo" alternativeColumnFillVisible="true" animated="false" layoutY="300.0" prefHeight="294.0" prefWidth="568.0" title="Nombre de Seismes au cours des années">
                                     <xAxis>
