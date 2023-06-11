@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -124,9 +125,11 @@ public class AppController {
     }
 
     public void updateIntens(BarChart<String, Integer> chart, ArrayList<Integer> data) {
+        ArrayList<String> intensités = new ArrayList<>(Arrays.asList("1","1.5","2","2.5","3","3.5","4","4.5","5","5.5","6","6.5","7","7.5","8","8.5","9","N/S"));
+
         XYChart.Series<String, Integer> dataSeries1 = new XYChart.Series<String, Integer>();
         for (int i = 0; i < data.size(); ++i) {
-            dataSeries1.getData().add(new XYChart.Data<String, Integer>(Integer.toString(i), data.get(i)));
+            dataSeries1.getData().add(new XYChart.Data<String, Integer>(intensités.get(i), data.get(i)));
         }
         chart.getData().add(dataSeries1);
     }

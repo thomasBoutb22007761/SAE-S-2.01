@@ -51,20 +51,20 @@
                     <content>
                         <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
                             <children>
-                                <BarChart fx:id="barEvo" layoutY="300.0" prefHeight="294.0" prefWidth="568.0">
+                                <BarChart fx:id="barEvo" alternativeColumnFillVisible="true" animated="false" layoutY="300.0" prefHeight="294.0" prefWidth="568.0" title="Nombre de Seismes au cours des années">
                                     <xAxis>
-                                        <CategoryAxis side="BOTTOM" />
+                                        <CategoryAxis animated="false" label="Année" side="BOTTOM" />
                                     </xAxis>
                                     <yAxis>
-                                        <NumberAxis side="LEFT" />
+                                        <NumberAxis animated="false" label="nombre de seismes" side="LEFT" />
                                     </yAxis>
                                 </BarChart>
-                                <BarChart fx:id="barIntens" layoutX="5.0" layoutY="5.0" prefHeight="300.0" prefWidth="563.0">
+                                <BarChart fx:id="barIntens" animated="false" layoutX="5.0" layoutY="5.0" prefHeight="300.0" prefWidth="563.0" title="Nombre de Seismes par intensités">
                                     <xAxis>
-                                        <CategoryAxis fx:id="yAxis1" side="BOTTOM" />
+                                        <CategoryAxis fx:id="yAxis1" animated="false" label="Intensité" side="BOTTOM" />
                                     </xAxis>
                                     <yAxis>
-                                        <NumberAxis side="LEFT" fx:id="xAxis1" />
+                                        <NumberAxis animated="false" label="nombre de seismes" side="LEFT" fx:id="xAxis1" />
                                     </yAxis>
                                 </BarChart>
                             </children>
