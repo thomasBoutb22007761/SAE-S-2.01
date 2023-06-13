@@ -9,6 +9,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe représentant un objet SeismeCSV contenant des données sur les séismes.
+ */
 public class SeismeCSV {
     private List<SeismeCSV> listData = new ArrayList<>();
 
@@ -25,14 +28,27 @@ public class SeismeCSV {
 
     String identifiant;
  // getters
+    /**
+     * Retourne la date du séisme.
+     *
+     * @return Date du séisme.
+     */
     public LocalDate getDate() {
         return date;
     }
-
+    /**
+     * Retourne la région du séisme.
+     *
+     * @return Région du séisme.
+     */
     public String getRegion() {
         return region;
     }
-
+    /**
+     * Retourne la liste de données SeismeCSV.
+     *
+     * @return Liste de données SeismeCSV.
+     */
     public List<SeismeCSV> getListData() {
         return listData;
     }
@@ -45,10 +61,28 @@ public class SeismeCSV {
     String region;
     String choc;
 //constructeurs
+
+    /**
+     * Constructeur de la classe SeismeCSV qui importe les données à partir d'un fichier CSV.
+     *
+     * @param csvFilePath Chemin du fichier CSV à importer.
+     */
+
     public SeismeCSV(String csvFilePath) {
         this.importDataFromCSV(new File(csvFilePath));
     }
-
+    /**
+     * Constructeur de la classe SeismeCSV avec tous les attributs.
+     *
+     * @param identifiant Identifiant du séisme.
+     * @param date        Date du séisme.
+     * @param heure       Heure du séisme.
+     * @param intensite   Intensité du séisme.
+     * @param qualite     Qualité du séisme.
+     * @param nom         Nom du séisme.
+     * @param region      Région du séisme.
+     * @param choc        Choc du séisme.
+     */
     public SeismeCSV(String identifiant, LocalDate date, String heure, String intensite, String qualite, String nom, String region, String choc) {
         this.identifiant = identifiant;
         this.date = date;
@@ -60,7 +94,11 @@ public class SeismeCSV {
         this.choc = choc;
     }
 
-
+    /**
+     * Importe les données à partir d'un fichier CSV.
+     *
+     * @param file Fichier CSV à importer.
+     */
     public void importDataFromCSV(File file) {
         try { // essaye de lire le csv , si cela echoue renvoie au catch
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -97,6 +135,14 @@ public class SeismeCSV {
             exception.printStackTrace(); //renvoie une erreur
         }
     }
+    /**
+     * Filtre les données par année et par lieu.
+     *
+     * @param listData Liste de données à filtrer.
+     * @param annee    Année à filtrer.
+     * @param lieu     Lieu à filtrer.
+     * @return Liste filtrée des séismes.
+     */
     public List<SeismeCSV> filtreAL(List<SeismeCSV> listData, int annee, String lieu) { //Filtre les données par année et par lieu
         List<SeismeCSV> filteredList = new ArrayList<>();
 
@@ -108,6 +154,13 @@ public class SeismeCSV {
 
         return filteredList;
     }
+    /**
+     * Filtre les données par année.
+     *
+     * @param listData Liste de données à filtrer.
+     * @param annee    Année à filtrer.
+     * @return Liste filtrée des séismes.
+     */
     public List<SeismeCSV> filtreA(List<SeismeCSV> listData, int annee) { // filtre uniquement par années
         List<SeismeCSV> filteredList = new ArrayList<>();
 
@@ -119,6 +172,13 @@ public class SeismeCSV {
 
         return filteredList;
     }
+    /**
+     * Filtre les données par lieu.
+     *
+     * @param listData Liste de données à filtrer.
+     * @param lieu     Lieu à filtrer.
+     * @return Liste filtrée des séismes.
+     */
     public List<SeismeCSV> filtreL(List<SeismeCSV> listData, String lieu) { //filtre par lieu uniquement
         List<SeismeCSV> filteredList = new ArrayList<>();
 

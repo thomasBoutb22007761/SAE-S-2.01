@@ -14,6 +14,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Cette classe est le contrôleur de l'application. Elle gère les interactions avec l'interface utilisateur
+ * et les fonctionnalités de l'application.
+ */
 public class AppController {
     //recuperation du csv
     private SeismeCSV init = new SeismeCSV("src/main/ressources/sae/s201/data.csv"); // pour faire fonctionner l'app avec un autre csv , modifier le lien ici
@@ -43,6 +47,12 @@ public class AppController {
     @FXML
     private WebView map;
 
+    /**
+     * Cette méthode retourne une liste contenant tous les lieux présents dans la liste de séismes spécifiée.
+     *
+     * @param list la liste de séismes
+     * @return une liste contenant tous les lieux
+     */
     public ArrayList<String> getLieux(List<SeismeCSV> list) { // fonction qui prend en entrée une liste de seismes et qui renvoie une liste contenant tout les lieux presents
         ArrayList<String> lieux = new ArrayList();
         for (SeismeCSV seisme : list) {
@@ -53,6 +63,10 @@ public class AppController {
         return lieux;
     }
 
+    /**
+     * Cette méthode est appelée lors de l'initialisation de l'interface utilisateur.
+     * Elle configure le slider, charge la carte dans le WebView et initialise la ChoiceBox.
+     */
     @FXML
     public void initialize() {
         anneeSlider.valueProperty().addListener((observable, oldValue, newValue) -> { // initialisation du slider et mise a jour active de celui ci
@@ -66,11 +80,24 @@ public class AppController {
     }
 
 
+    /**
+     * Cette méthode est appelée lors de la sélection d'un lieu dans la ChoiceBox.
+     * Elle met à jour la valeur du lieu choisi.
+     *
+     * @param Event l'événement de sélection du lieu
+     */
     private void getLieuCB(Event Event) {              // Mise à jour du lieu choisi
         lieu = (String) selectRegion.getValue();
         lieuLabel1.setText("Lieu choisi: " + lieu);
     }
 
+    /**
+     * Cette méthode trie les données en fonction de l'année et/ou du lieu, selon les spécifications.
+     *
+     * @param bannee indique si le tri par année est activé
+     * @param blieu  indique si le tri par lieu est activé
+     * @return une liste de séismes triée selon les critères spécifiés
+     */
     public List<SeismeCSV> triData(boolean bannee, boolean blieu) {         // trie les données en fonction de l'année et/ou du lieu selon les specifications
         if (bannee) {
             return init.filtreA(init.getListData(), annee);
@@ -84,6 +111,12 @@ public class AppController {
         } else return init.getListData();
     }
 
+    /**
+     * Cette méthode génère une liste contenant le nombre de séismes de chaque intensité par année.
+     *
+     * @param liste la liste de séismes
+     * @return une liste contenant le nombre de séismes de chaque intensité par année
+     */
     public ArrayList<Integer> GraphIntens(List<SeismeCSV> liste) { // genere la liste qui servira a afficher le graphe montrant le nombre de seismes de chaque intensité par année
         ArrayList<Integer> intensL = new ArrayList<>(Collections.nCopies(18, 0));
         for (SeismeCSV seisme : liste) {
@@ -130,6 +163,12 @@ public class AppController {
         return intensL;
     }
 
+    /**
+     * Cette méthode génère une liste contenant le nombre de séismes par année en fonction du lieu.
+     *
+     * @param list la liste de séismes
+     * @return une liste contenant le nombre de séismes par année en fonction du lieu
+     */
     public ArrayList<ArrayList<Integer>> GraphEvo(List<SeismeCSV> list) { // genere la liste qui servira a afficher le graphe montrant le nombre de seismes par année en fonction du lieu
 
         ArrayList<Integer> annees = new ArrayList();
@@ -151,6 +190,12 @@ public class AppController {
         return data;
     }
 
+    /**
+     * Cette méthode met à jour le graphique des intensités.
+     *
+     * @param chart le graphique des intensités
+     * @param data  les données à afficher sur le graphique
+     */
     public void updateIntens(BarChart<String, Integer> chart, ArrayList<Integer> data) {    // Fonction qui met a jour le graph grace a la liste generee par graphIntens
         if (!anneesMarquees.contains(annee)) { // regarde si l'année a deja ete traitée
             AnneeDoublon.setVisible(false);
@@ -168,6 +213,12 @@ public class AppController {
         else{AnneeDoublon.setVisible(true);}
     }
 
+    /**
+     * Cette méthode met à jour le graphique de l'évolution du nombre de séismes en fonction du lieu.
+     *
+     * @param chart le graphique de l'évolution du nombre de séismes
+     * @param data  les données à afficher sur le graphique
+     */
     public void updateEvoNbS(BarChart<String, Integer> chart, ArrayList<ArrayList<Integer>> data) {  // Fonction qui met a jour le graph grace a la liste generee par graphEvo
         if(!lieuxMarques.contains(lieu)){ // regarde si le lieu nest present dans la liste des lieux deja ajoutés
             LieuDoublon.setVisible(false);
@@ -183,11 +234,13 @@ public class AppController {
         }
         else{LieuDoublon.setVisible(true);}
     }
+
     @FXML
     private void changeGraphAnnee(ActionEvent event) { // a la pression du bouton la serie dont l'année est selecionnée est crée et ajoutée
         annee = (int)anneeSlider.getValue();
         updateIntens(barIntens,GraphIntens(triData(true,false)));
     }
+
     @FXML
     private void changeGraphLieu(ActionEvent event) { // a la pression du bouton la serie dont la region est selecionnée est créée et ajoutée
         updateEvoNbS(barEvo,GraphEvo(triData(false,true)));
