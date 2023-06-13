@@ -4,13 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-
+import javafx.scene.web.WebView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -42,6 +40,8 @@ public class AppController {
     BarChart barEvo;
     @FXML
     private ChoiceBox selectRegion;
+    @FXML
+    private WebView map;
 
     public ArrayList<String> getLieux(List<SeismeCSV> list) { // fonction qui prend en entrée une liste de seismes et qui renvoie une liste contenant tout les lieux presents
         ArrayList<String> lieux = new ArrayList();
@@ -59,9 +59,12 @@ public class AppController {
             int annneeChoisie = newValue.intValue();
             anneeLabel.setText("Année choisie: " + annneeChoisie);
         });
+        map.getEngine().load("https://www.google.fr/maps/@47.0455453,1.908352,6z?entry=ttu"); // affiche la carte de la france  dans le webview
         selectRegion.getItems().addAll(getLieux(triData(false, false))); //Initialisation de la choicebox grace a la liste des lieux presents recoltée avec la fonction getlieux
         selectRegion.setOnAction(this::getLieuCB);                                  // appel de getlieucb quand on sélectionne un lieu
+
     }
+
 
     private void getLieuCB(Event Event) {              // Mise à jour du lieu choisi
         lieu = (String) selectRegion.getValue();

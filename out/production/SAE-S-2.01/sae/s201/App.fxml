@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
 
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sae.s201.AppController">
     <children>
@@ -45,6 +46,7 @@
                   </Label>
                   <Label fx:id="AnneeDoublon" layoutX="64.0" layoutY="126.0" text="Cette année à déja été traitée" textFill="RED" visible="false" />
                   <Label fx:id="LieuDoublon" layoutX="98.0" layoutY="272.0" text="Ce lieu à déja été traité" textFill="RED" visible="false" />
+                        <WebView fx:id="map" layoutY="328.0" prefHeight="270.0" prefWidth="343.0" />
                     </children>
                 </AnchorPane>
                 <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
