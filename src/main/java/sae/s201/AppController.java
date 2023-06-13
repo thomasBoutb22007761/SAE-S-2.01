@@ -20,8 +20,12 @@ public class AppController {
     //recuperation du csv
     private SeismeCSV init = new SeismeCSV("src/main/ressources/sae/s201/data.csv");
     //definition des variables dont on aura besoin
-    int annee ;
-    String lieu ;
+    int annee;
+    ArrayList<Integer> anneesMarquees = new ArrayList<Integer>();
+
+    String lieu;
+    ArrayList<String> lieuxMarques = new ArrayList<String>();
+
     @FXML
     private Slider anneeSlider;
     @FXML
@@ -35,10 +39,10 @@ public class AppController {
     @FXML
     private ChoiceBox selectRegion;
 
-    public ArrayList<String> getLieux(List<SeismeCSV> list){ // fonction qui prend en entrée une liste de seismes et qui renvoie une liste contenant tout les lieux presents
+    public ArrayList<String> getLieux(List<SeismeCSV> list) { // fonction qui prend en entrée une liste de seismes et qui renvoie une liste contenant tout les lieux presents
         ArrayList<String> lieux = new ArrayList();
         for (SeismeCSV seisme : list) {
-            if (!(lieux.contains(seisme.getRegion()))){
+            if (!(lieux.contains(seisme.getRegion()))) {
                 lieux.add(seisme.getRegion());
             }
         }
@@ -51,11 +55,11 @@ public class AppController {
             int annneeChoisie = newValue.intValue();
             anneeLabel.setText("Année choisie: " + annneeChoisie);
         });
-        selectRegion.getItems().addAll(getLieux(triData(false,false))); //Initialisation de la choicebox grace a la liste des lieux presents recoltée avec la fonction getlieux
-        selectRegion.setOnAction(this::getLieuCB);                                  // appel de getlieucb quand on selectionne un lieu
+        selectRegion.getItems().addAll(getLieux(triData(false, false))); //Initialisation de la choicebox grace a la liste des lieux presents recoltée avec la fonction getlieux
+        selectRegion.setOnAction(this::getLieuCB);                                  // appel de getlieucb quand on sélectionne un lieu
     }
 
-    private void getLieuCB(Event Event){              // Mise a jour du lieu choisi
+    private void getLieuCB(Event Event) {              // Mise à jour du lieu choisi
         lieu = (String) selectRegion.getValue();
         lieuLabel1.setText("Lieu choisi: " + lieu);
     }
@@ -119,11 +123,11 @@ public class AppController {
         return intensL;
     }
 
-    public ArrayList<ArrayList<Integer>> GraphEvo(List<SeismeCSV> list){ // genere la liste qui servira a afficher le graphe montrant le nombre de seismes par année en fonction du lieu
+    public ArrayList<ArrayList<Integer>> GraphEvo(List<SeismeCSV> list) { // genere la liste qui servira a afficher le graphe montrant le nombre de seismes par année en fonction du lieu
 
         ArrayList<Integer> annees = new ArrayList();
         for (SeismeCSV seisme : list) {
-            if (!(annees.contains(seisme.getDate().getYear()))){
+            if (!(annees.contains(seisme.getDate().getYear()))) {
                 annees.add(seisme.date.getYear());
             }
 
@@ -131,7 +135,7 @@ public class AppController {
 
         ArrayList<Integer> nombre = new ArrayList<>(Collections.nCopies(annees.size(), 0));
 
-        for (SeismeCSV seisme : list){
+        for (SeismeCSV seisme : list) {
             nombre.set(annees.indexOf(seisme.date.getYear()), nombre.get(annees.indexOf(seisme.date.getYear())) + 1);
         }
         ArrayList<ArrayList<Integer>> data = new ArrayList();
@@ -141,35 +145,40 @@ public class AppController {
     }
 
     public void updateIntens(BarChart<String, Integer> chart, ArrayList<Integer> data) {    // Fonction qui met a jour le graph grace a la liste generee par graphIntens
-        ArrayList<String> intensités = new ArrayList<>(Arrays.asList("1","1.5","2","2.5","3","3.5","4","4.5","5","5.5","6","6.5","7","7.5","8","8.5","9","N/S"));
+        if (!anneesMarquees.contains(annee)) { // regarde si l'année a deja ete traitée
+            ArrayList<String> intensités = new ArrayList<>(Arrays.asList("1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5", "7", "7.5", "8", "8.5", "9", "N/S"));
 
-        XYChart.Series<String, Integer> dataSeries1 = new XYChart.Series<String, Integer>();
-        for (int i = 0; i < data.size(); ++i) {
-            dataSeries1.getData().add(new XYChart.Data<String, Integer>(intensités.get(i), data.get(i)));
+            XYChart.Series<String, Integer> dataSeries1 = new XYChart.Series<String, Integer>(); //nouvelle serie
+            for (int i = 0; i < data.size(); ++i) {                                              // boucle qui va mettre chaque valeur de la serie a sa place
+                dataSeries1.getData().add(new XYChart.Data<String, Integer>(intensités.get(i), data.get(i)));
 
+            }
+            dataSeries1.setName(Integer.toString(annee)); // on renomme la serie avec l'année qui correspond
+            chart.getData().add(dataSeries1);               // on l'ajoute au graphe
+            anneesMarquees.add(annee); // ajoute l'annee à la liste des années traitées
         }
-        dataSeries1.setName(Integer.toString(annee));
-        chart.getData().add(dataSeries1);
     }
 
     public void updateEvoNbS(BarChart<String, Integer> chart, ArrayList<ArrayList<Integer>> data) {  // Fonction qui met a jour le graph grace a la liste generee par graphEvo
-        XYChart.Series<String, Integer> dataSeries2 = new XYChart.Series<>();
-        ArrayList<Integer> annees = data.get(0);
-        ArrayList<Integer> quantite = data.get(1);
-        for (int i = 0; i < data.get(0).size(); ++i) {
-            dataSeries2.getData().add(new XYChart.Data<String, Integer>(Integer.toString(annees.get(i)),quantite.get(i)));
+        if(!lieuxMarques.contains(lieu)){ // regarde si le lieu nest present dans la liste des lieux deja ajoutés
+            XYChart.Series<String, Integer> dataSeries2 = new XYChart.Series<>(); // on cree une nouvelle serie
+            ArrayList<Integer> annees = data.get(0);
+            ArrayList<Integer> quantite = data.get(1);
+            for (int i = 0; i < data.get(0).size(); ++i) {
+                dataSeries2.getData().add(new XYChart.Data<String, Integer>(Integer.toString(annees.get(i)), quantite.get(i))); // on met chaque valeur la ou elle doit etre
+            }
+            dataSeries2.setName(lieu); // on renomme la serie
+            chart.getData().add(dataSeries2); // on l'ajoute
+            lieuxMarques.add(lieu); // ajoute a la liste de lieu presents sur le graph
         }
-        dataSeries2.setName(lieu);
-        chart.getData().add(dataSeries2);
     }
-
     @FXML
-    private void changeGraphAnnee(ActionEvent event) {
+    private void changeGraphAnnee(ActionEvent event) { // a la pression du bouton la serie dont l'année est selecionnée est crée et ajoutée
         annee = (int)anneeSlider.getValue();
         updateIntens(barIntens,GraphIntens(triData(true,false)));
     }
     @FXML
-    private void changeGraphLieu(ActionEvent event) {
+    private void changeGraphLieu(ActionEvent event) { // a la pression du bouton la serie dont la region est selecionnée est crée et ajoutée
         updateEvoNbS(barEvo,GraphEvo(triData(false,true)));
     }
 }

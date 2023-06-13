@@ -13,7 +13,7 @@ import java.util.List;
 public class SeismeCSV {
     private List<SeismeCSV> listData = new ArrayList<>();
 
-    private static final String CSV_DELIMITER = ",";
+    private static final String CSV_DELIMITER = ","; //ici on set le delimiteur comme etant une virgule
 
     private static final int aID = 1;
     private static final int aDate = 2;
@@ -25,7 +25,7 @@ public class SeismeCSV {
     private static final int aChoc = 8;
 
     String identifiant;
-
+ // getters
     public LocalDate getDate() {
         return date;
     }
@@ -37,7 +37,7 @@ public class SeismeCSV {
     public List<SeismeCSV> getListData() {
         return listData;
     }
-
+//
     LocalDate date;
     String heure;
     String intensite;
@@ -45,7 +45,7 @@ public class SeismeCSV {
     String nom;
     String region;
     String choc;
-
+//constructeurs
     public SeismeCSV(String csvFilePath) {
         this.importDataFromCSV(new File(csvFilePath));
     }
@@ -63,7 +63,7 @@ public class SeismeCSV {
 
 
     public void importDataFromCSV(File file) {
-        try {
+        try { // essaye de lire le csv , si cela echoue renvoie au catch
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             reader.readLine(); // Ignorer la première ligne (en-têtes des colonnes)
@@ -72,6 +72,7 @@ public class SeismeCSV {
 
                 // Récupérer les valeurs des attributs depuis le tableau data
                 String id = data[aID];
+
                 //recuperation de la date et conversion au format LocalDate
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 String datetxt = data[aDate];
@@ -83,7 +84,7 @@ public class SeismeCSV {
                 String qual = data[aQual];
                 String nom = data[aNom];
                 String region = data[aRegion];
-                region=region.replace("\"", "");
+                region=region.replace("\"", ""); // on retire les "" en trop
                 String choc = data[aChoc];
 
                 // Créer un objet SeismeData avec les valeurs des attributs
@@ -94,32 +95,32 @@ public class SeismeCSV {
             }
             reader.close();
         } catch (IOException exception) {
-            exception.printStackTrace();
+            exception.printStackTrace(); //renvoie une erreur
         }
     }
     public List<SeismeCSV> filtreAL(List<SeismeCSV> listData, int annee, String lieu) { //Filtre les données par année et par lieu
         List<SeismeCSV> filteredList = new ArrayList<>();
 
         for (SeismeCSV seismeData : listData) {
-            if (seismeData.getDate().getYear() == annee && seismeData.getRegion().equalsIgnoreCase(lieu)) {
-                filteredList.add(seismeData);
+            if (seismeData.getDate().getYear() == annee && seismeData.getRegion().equalsIgnoreCase(lieu)) { // on regarde si ce seisme etait bel et bien a cette année et region
+                filteredList.add(seismeData); // si oui , on l'ajoute a la liste triée
             }
         }
 
         return filteredList;
     }
-    public List<SeismeCSV> filtreA(List<SeismeCSV> listData, int annee) {
+    public List<SeismeCSV> filtreA(List<SeismeCSV> listData, int annee) { // filtre uniquement par années
         List<SeismeCSV> filteredList = new ArrayList<>();
 
         for (SeismeCSV seismeData : listData) {
-            if (seismeData.getDate().getYear() == annee) {
+            if (seismeData.getDate().getYear() == annee) { // check si le seismes etait bien la bonne année
                 filteredList.add(seismeData);
             }
         }
 
         return filteredList;
     }
-    public List<SeismeCSV> filtreL(List<SeismeCSV> listData, String lieu) {
+    public List<SeismeCSV> filtreL(List<SeismeCSV> listData, String lieu) { //filtre par lieu uniquement
         List<SeismeCSV> filteredList = new ArrayList<>();
 
         for (SeismeCSV seismeData : listData) {
