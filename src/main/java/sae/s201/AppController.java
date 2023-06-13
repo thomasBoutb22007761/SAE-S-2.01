@@ -16,7 +16,7 @@ import java.util.List;
 
 public class AppController {
     //recuperation du csv
-    private SeismeCSV init = new SeismeCSV("src/main/ressources/sae/s201/data.csv");
+    private SeismeCSV init = new SeismeCSV("src/main/ressources/sae/s201/data.csv"); // pour faire fonctionner l'app avec un autre csv , modifier le lien ici
     //definition des variables dont on aura besoin
     int annee;
     ArrayList<Integer> anneesMarquees = new ArrayList<Integer>();
