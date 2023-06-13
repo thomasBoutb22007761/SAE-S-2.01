@@ -33,6 +33,10 @@ public class AppController {
     @FXML
     private Label lieuLabel1;
     @FXML
+    private Label AnneeDoublon;
+    @FXML
+    private Label LieuDoublon;
+    @FXML
     BarChart barIntens;
     @FXML
     BarChart barEvo;
@@ -146,6 +150,7 @@ public class AppController {
 
     public void updateIntens(BarChart<String, Integer> chart, ArrayList<Integer> data) {    // Fonction qui met a jour le graph grace a la liste generee par graphIntens
         if (!anneesMarquees.contains(annee)) { // regarde si l'année a deja ete traitée
+            AnneeDoublon.setVisible(false);
             ArrayList<String> intensités = new ArrayList<>(Arrays.asList("1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5", "7", "7.5", "8", "8.5", "9", "N/S"));
 
             XYChart.Series<String, Integer> dataSeries1 = new XYChart.Series<String, Integer>(); //nouvelle serie
@@ -157,10 +162,12 @@ public class AppController {
             chart.getData().add(dataSeries1);               // on l'ajoute au graphe
             anneesMarquees.add(annee); // ajoute l'annee à la liste des années traitées
         }
+        else{AnneeDoublon.setVisible(true);}
     }
 
     public void updateEvoNbS(BarChart<String, Integer> chart, ArrayList<ArrayList<Integer>> data) {  // Fonction qui met a jour le graph grace a la liste generee par graphEvo
         if(!lieuxMarques.contains(lieu)){ // regarde si le lieu nest present dans la liste des lieux deja ajoutés
+            LieuDoublon.setVisible(false);
             XYChart.Series<String, Integer> dataSeries2 = new XYChart.Series<>(); // on cree une nouvelle serie
             ArrayList<Integer> annees = data.get(0);
             ArrayList<Integer> quantite = data.get(1);
@@ -171,6 +178,7 @@ public class AppController {
             chart.getData().add(dataSeries2); // on l'ajoute
             lieuxMarques.add(lieu); // ajoute a la liste de lieu presents sur le graph
         }
+        else{LieuDoublon.setVisible(true);}
     }
     @FXML
     private void changeGraphAnnee(ActionEvent event) { // a la pression du bouton la serie dont l'année est selecionnée est crée et ajoutée
@@ -178,7 +186,7 @@ public class AppController {
         updateIntens(barIntens,GraphIntens(triData(true,false)));
     }
     @FXML
-    private void changeGraphLieu(ActionEvent event) { // a la pression du bouton la serie dont la region est selecionnée est crée et ajoutée
+    private void changeGraphLieu(ActionEvent event) { // a la pression du bouton la serie dont la region est selecionnée est créée et ajoutée
         updateEvoNbS(barEvo,GraphEvo(triData(false,true)));
     }
 }

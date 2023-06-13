@@ -43,6 +43,8 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
+                  <Label fx:id="AnneeDoublon" layoutX="64.0" layoutY="126.0" text="Cette année à déja été traitée" textFill="RED" visible="false" />
+                  <Label fx:id="LieuDoublon" layoutX="98.0" layoutY="272.0" text="Ce lieu à déja été traité" textFill="RED" visible="false" />
                     </children>
                 </AnchorPane>
                 <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
